@@ -37,12 +37,12 @@ list_all_versions() {
 }
 
 download_release() {
-	local version filename url
+	local version filename url arch
 	version="$1"
 	filename="$2"
+	arch=$(get_architecture)
 
-	# TODO: Adapt the release URL convention for danger-js
-	url="$GH_REPO/archive/v${version}.tar.gz"
+	url="$GH_REPO/releases/download/${version}/danger-macos-${arch}.zip"
 
 	echo "* Downloading $TOOL_NAME release $version..."
 	curl "${curl_opts[@]}" -o "$filename" -C - "$url" || fail "Could not download $url"
@@ -71,4 +71,13 @@ install_version() {
 		rm -rf "$install_path"
 		fail "An error occurred while installing $TOOL_NAME $version."
 	)
+}
+
+get_architecture() {
+	local -r machine="$(uname -m)"
+	case $machine in
+	arm64) echo "arm64" ;;
+	x86_64) echo "x64" ;;
+	*) echo "arm64" ;;
+	esac
 }
