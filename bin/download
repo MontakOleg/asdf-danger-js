@@ -22,9 +22,9 @@ unzip -o "$release_file" -d "$ASDF_DOWNLOAD_PATH" >/dev/null || fail "Could not 
 # rename to danger
 arch=$(get_architecture)
 if [[ $arch == "arm64" ]]; then
-  mv "$ASDF_DOWNLOAD_PATH/danger-arm64" "$ASDF_DOWNLOAD_PATH/danger"
+	mv "$ASDF_DOWNLOAD_PATH/danger-arm64" "$ASDF_DOWNLOAD_PATH/danger"
 else
-  mv "$ASDF_DOWNLOAD_PATH/danger-x64" "$ASDF_DOWNLOAD_PATH/danger"
+	mv "$ASDF_DOWNLOAD_PATH/danger-x64" "$ASDF_DOWNLOAD_PATH/danger"
 fi
 
 # Remove the zip file since we don't need to keep it
